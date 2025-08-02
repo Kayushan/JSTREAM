@@ -12,9 +12,7 @@ import { toast } from 'react-hot-toast';
 import { 
   PlayIcon, 
   ChevronLeftIcon, 
-  ChevronRightIcon,
-  ClockIcon,
-  CheckIcon
+  ClockIcon
 } from '@heroicons/react/24/outline';
 
 interface TVShowEpisodesProps {

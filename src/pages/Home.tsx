@@ -9,6 +9,15 @@ import { toast } from 'react-hot-toast';
 import { PlayIcon, InformationCircleIcon, ChevronLeftIcon, ChevronRightIcon, SpeakerWaveIcon, SpeakerXMarkIcon } from '@heroicons/react/24/outline';
 import { getWatchUrl } from '../utils/mobileUtils';
 
+// Helper functions to safely access properties
+const getMediaTitle = (media: Movie | TVShow): string => {
+  return 'title' in media ? media.title : media.name;
+};
+
+const getMediaReleaseDate = (media: Movie | TVShow): string => {
+  return 'release_date' in media ? media.release_date : media.first_air_date;
+};
+
 const Home: React.FC = () => {
   const [trending, setTrending] = useState<(Movie | TVShow)[]>([]);
   const [popularMovies, setPopularMovies] = useState<Movie[]>([]);
@@ -202,7 +211,7 @@ const Home: React.FC = () => {
           <div className="absolute inset-0">
             <img
               src={getImageUrl(featuredContent[currentBannerIndex]?.backdrop_path || '', 'original')}
-              alt={featuredContent[currentBannerIndex]?.title || featuredContent[currentBannerIndex]?.name}
+              alt={getMediaTitle(featuredContent[currentBannerIndex])}
               className="w-full h-full object-cover"
             />
             {/* Netflix-style gradient overlays */}
@@ -248,7 +257,7 @@ const Home: React.FC = () => {
               <div className="max-w-2xl">
                 {/* Title */}
                 <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 leading-tight">
-                  {featuredContent[currentBannerIndex]?.title || featuredContent[currentBannerIndex]?.name}
+                  {getMediaTitle(featuredContent[currentBannerIndex])}
                 </h1>
 
                 {/* Netflix-style meta info */}
@@ -261,10 +270,7 @@ const Home: React.FC = () => {
                     {featuredContent[currentBannerIndex]?.vote_average?.toFixed(1)} Rating
                   </span>
                   <span className="text-white/80">
-                    {featuredContent[currentBannerIndex]?.release_date 
-                      ? new Date(featuredContent[currentBannerIndex].release_date).getFullYear()
-                      : new Date(featuredContent[currentBannerIndex]?.first_air_date || '').getFullYear()
-                    }
+                    {new Date(getMediaReleaseDate(featuredContent[currentBannerIndex])).getFullYear()}
                   </span>
                   <span className="text-white/80">HD</span>
                 </div>

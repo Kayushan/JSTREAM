@@ -1,48 +1,45 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getSession } from '../services/supabase';
-import { getMovieDetails, getTVShowDetails, getImageUrl, Episode } from '../services/tmdb';
+import { getMovieDetails, getTVShowDetails, Episode } from '../services/tmdb';
 import { updateContinueWatching, getContinueWatching } from '../services/supabase';
-import { toast } from 'react-hot-toast';
 import { 
-  HeartIcon, 
-  ArrowLeftIcon, 
-  PlayIcon,
-  PauseIcon,
-  SpeakerWaveIcon,
+  PlayIcon, 
+  PauseIcon, 
+  SpeakerWaveIcon, 
   SpeakerXMarkIcon,
-  ArrowsPointingOutIcon,
-  ClockIcon,
-  StarIcon,
-  CalendarIcon,
-  InformationCircleIcon,
-  XMarkIcon,
-  ChevronUpIcon,
+  ArrowLeftIcon,
   ChevronDownIcon,
+  XMarkIcon,
+  ListBulletIcon,
   ShareIcon,
-  BookmarkIcon,
+  HeartIcon,
   EyeIcon,
   EyeSlashIcon,
-  ListBulletIcon
+  ArrowsPointingOutIcon,
+  StarIcon,
+  CalendarIcon,
+  ClockIcon,
+  InformationCircleIcon
 } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid';
-import TrailerButton from '../components/media/TrailerButton';
-import { MovieData } from '../stores/trailerModalStore';
+import { toast } from 'react-hot-toast';
 import { config } from '../config/env';
 import TVShowEpisodes from '../components/media/TVShowEpisodes';
+import TrailerButton from '../components/media/TrailerButton';
+import { MovieData } from '../stores/trailerModalStore';
 
 const MobileWatch: React.FC = () => {
   const { mediaType, tmdbId } = useParams<{ mediaType: 'movie' | 'tv'; tmdbId: string }>();
   const [mediaDetails, setMediaDetails] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [progress, setProgress] = useState(0);
   const [userId, setUserId] = useState<string | null>(null);
   const [showControls, setShowControls] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [currentTime, _setCurrentTime] = useState(0);
+  const [duration, _setDuration] = useState(0);
   const [showDetails, setShowDetails] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showQualityMenu, setShowQualityMenu] = useState(false);
@@ -120,26 +117,6 @@ const MobileWatch: React.FC = () => {
 
     fetchData();
   }, [mediaType, tmdbId, navigate]);
-
-  const handleProgressUpdate = async (newProgress: number) => {
-    setProgress(newProgress);
-    
-    if (userId && mediaDetails) {
-      try {
-        await updateContinueWatching({
-          user_id: userId,
-          tmdb_id: parseInt(tmdbId!),
-          media_type: mediaType!,
-          title: 'title' in mediaDetails ? mediaDetails.title : mediaDetails.name,
-          poster_path: mediaDetails.poster_path,
-          progress: newProgress,
-          last_watched: new Date().toISOString(),
-        });
-      } catch (error) {
-        console.error('Error updating progress:', error);
-      }
-    }
-  };
 
   const handleToggleFavorite = async () => {
     if (!userId) {
@@ -297,7 +274,7 @@ const MobileWatch: React.FC = () => {
     setShowEpisodes(true);
   };
 
-  const handleEpisodeSelect = (episode: Episode, seasonNumber: number) => {
+  const handleEpisodeSelect = (episode: any, seasonNumber: number) => {
     setCurrentEpisode(episode);
     setCurrentSeason(seasonNumber);
     setShowEpisodes(false);

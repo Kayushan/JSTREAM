@@ -74,7 +74,7 @@ export interface TrendingResponse {
 }
 
 // Helper function to get image URL
-export const getImageUrl = (path: string, size: 'w92' | 'w154' | 'w185' | 'w342' | 'w500' | 'w780' | 'original' = 'w500') => {
+export const getImageUrl = (path: string, size: 'w92' | 'w154' | 'w185' | 'w300' | 'w342' | 'w500' | 'w780' | 'w1280' | 'original' = 'w500') => {
   if (!path) return '';
   return `${config.tmdb.imageBaseUrl}/${size}${path}`;
 };

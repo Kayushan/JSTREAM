@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { 
   ShieldCheckIcon,
   DocumentTextIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon
+  ChevronLeftIcon
 } from '@heroicons/react/24/outline';
 import MobileNavigation from '../components/layout/MobileNavigation';
 

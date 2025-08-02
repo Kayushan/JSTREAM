@@ -2,7 +2,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MobileDesktopRouter from './components/layout/MobileDesktopRouter';
 import Home from './pages/Home';
-import MobileHome from './pages/MobileHome';
 import MobileSearch from './pages/MobileSearch';
 import MobileLibrary from './pages/MobileLibrary';
 import MobileProfile from './pages/MobileProfile';

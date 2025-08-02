@@ -10,10 +10,9 @@ import {
   getAnimeTVShows,
   Movie, 
   TVShow, 
-  getImageUrl 
 } from '../services/tmdb';
 import { toast } from 'react-hot-toast';
-import { PlayIcon, ChevronLeftIcon } from '@heroicons/react/24/outline';
+import { ChevronLeftIcon } from '@heroicons/react/24/outline';
 import { getWatchUrl } from '../utils/mobileUtils';
 import MobileNavigation from '../components/layout/MobileNavigation';
 import MediaGrid from '../components/media/MediaGrid';

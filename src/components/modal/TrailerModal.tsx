@@ -12,8 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTrailerModalStore } from '../../stores/trailerModalStore';
 import { getTrailer } from '../../services/trailerService';
 import { 
-  isValidTrailer, 
-  getTrailerDisplayName 
+  isValidTrailer
 } from '../../utils/trailerUtils';
 import { config } from '../../config/env';
 
@@ -30,13 +29,11 @@ const TrailerModal: React.FC = () => {
   const modalRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
-  const [videoReady, setVideoReady] = useState(false);
 
   // Handle modal visibility animation
   useEffect(() => {
     if (isOpen) {
       setIsVisible(true);
-      setVideoReady(false);
     } else {
       setIsVisible(false);
     }
@@ -109,7 +106,7 @@ const TrailerModal: React.FC = () => {
   };
 
   const handleVideoReady = () => {
-    setVideoReady(true);
+    // setVideoReady(true); // This line is removed
   };
 
   const formatRuntime = (runtime?: number) => {
@@ -128,9 +125,7 @@ const TrailerModal: React.FC = () => {
 
   const movieTitle = currentMovie?.title || currentMovie?.name || 'Unknown Title';
   const posterPath = currentMovie?.poster_path;
-  const backdropPath = currentMovie?.backdrop_path;
   const posterUrl = posterPath ? `${config.tmdb.imageBaseUrl}/w500${posterPath}` : '';
-  const backdropUrl = backdropPath ? `${config.tmdb.imageBaseUrl}/w1280${backdropPath}` : '';
   const releaseDate = currentMovie?.release_date || currentMovie?.first_air_date;
   const runtime = currentMovie?.runtime || currentMovie?.episode_run_time?.[0];
   const voteAverage = currentMovie?.vote_average;

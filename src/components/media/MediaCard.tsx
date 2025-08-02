@@ -4,7 +4,6 @@ import { Movie, TVShow, getImageUrl } from '../../services/tmdb';
 import { HeartIcon, PlayIcon, ListBulletIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolidIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
-import { MovieData, useTrailerModalStore } from '../../stores/trailerModalStore';
 import { getWatchUrl } from '../../utils/mobileUtils';
 
 interface MediaCardProps {
@@ -49,17 +48,6 @@ const MediaCard: React.FC<MediaCardProps> = ({
     e.preventDefault();
     e.stopPropagation();
     // Netflix-style direct navigation (no modal, no details)
-    if (onMediaClick) {
-      onMediaClick(media);
-    } else {
-      const watchUrl = getWatchUrl(mediaType, media.id.toString());
-      navigate(watchUrl);
-    }
-  };
-
-  const handleWatchNow = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
     if (onMediaClick) {
       onMediaClick(media);
     } else {

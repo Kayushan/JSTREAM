@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { 
-  CogIcon,
   SunIcon,
   MoonIcon,
   SpeakerWaveIcon,
@@ -153,7 +151,7 @@ const MobileSettings: React.FC = () => {
         <div className="flex items-center justify-between p-4">
           <div className="flex items-center space-x-3">
             <button
-              onClick={() => navigate('/mobile/profile')}
+              onClick={() => window.history.back()}
               className="text-white p-2"
             >
               <ChevronLeftIcon className="h-6 w-6" />
@@ -175,7 +173,7 @@ const MobileSettings: React.FC = () => {
                 {section.items.map((item, itemIndex) => (
                   <div key={itemIndex} className="flex items-center justify-between py-3 border-b border-gray-800 last:border-b-0">
                     <div className="flex items-center space-x-3 flex-1">
-                      <item.icon className="h-5 w-5 text-gray-400" />
+                      {item.icon && React.createElement(item.icon, { className: "h-5 w-5 text-gray-400" })}
                       <div className="flex-1">
                         <p className="text-white font-medium">{item.label}</p>
                         <p className="text-gray-400 text-sm">{item.description}</p>
@@ -184,7 +182,11 @@ const MobileSettings: React.FC = () => {
                     
                     {item.type === 'toggle' && (
                       <button
-                        onClick={item.onChange}
+                        onClick={() => {
+                          if (item.type === 'toggle') {
+                            (item.onChange as () => void)();
+                          }
+                        }}
                         className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
                           item.value ? 'bg-red-600' : 'bg-gray-600'
                         }`}

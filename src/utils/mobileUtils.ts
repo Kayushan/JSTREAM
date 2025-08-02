@@ -33,11 +33,11 @@ export const addMobileTouchHandlers = (element: HTMLElement, onTap: () => void):
   let touchEndTime = 0;
   const longPressDelay = 500;
 
-  element.addEventListener('touchstart', (e) => {
+  element.addEventListener('touchstart', (_e) => {
     touchStartTime = new Date().getTime();
   });
 
-  element.addEventListener('touchend', (e) => {
+  element.addEventListener('touchend', (_e) => {
     touchEndTime = new Date().getTime();
     const touchDuration = touchEndTime - touchStartTime;
     

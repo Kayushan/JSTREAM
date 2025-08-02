@@ -11,6 +11,15 @@ import { getWatchUrl } from '../utils/mobileUtils';
 import MobileNavigation from '../components/layout/MobileNavigation';
 import TVShowEpisodes from '../components/media/TVShowEpisodes';
 
+// Helper functions to safely access properties
+const getMediaTitle = (media: Movie | TVShow): string => {
+  return 'title' in media ? media.title : media.name;
+};
+
+const getMediaReleaseDate = (media: Movie | TVShow): string => {
+  return 'release_date' in media ? media.release_date : media.first_air_date;
+};
+
 const MobileHome: React.FC = () => {
   const [trending, setTrending] = useState<(Movie | TVShow)[]>([]);
   const [popularMovies, setPopularMovies] = useState<Movie[]>([]);
@@ -210,7 +219,7 @@ const MobileHome: React.FC = () => {
           <div className="absolute inset-0">
             <img
               src={getImageUrl(featuredContent[currentBannerIndex]?.backdrop_path || '', 'w1280')}
-              alt={featuredContent[currentBannerIndex]?.title || featuredContent[currentBannerIndex]?.name}
+              alt={getMediaTitle(featuredContent[currentBannerIndex])}
               className="w-full h-full object-cover"
             />
             {/* Mobile gradient overlays */}
@@ -224,7 +233,7 @@ const MobileHome: React.FC = () => {
               <div className="max-w-sm">
                 {/* Title */}
                 <h1 className="text-3xl md:text-4xl font-bold text-white mb-3 leading-tight">
-                  {featuredContent[currentBannerIndex]?.title || featuredContent[currentBannerIndex]?.name}
+                  {getMediaTitle(featuredContent[currentBannerIndex])}
                 </h1>
 
                 {/* Mobile meta info */}
@@ -237,10 +246,7 @@ const MobileHome: React.FC = () => {
                     {featuredContent[currentBannerIndex]?.vote_average?.toFixed(1)} Rating
                   </span>
                   <span className="text-white/80 text-sm">
-                    {featuredContent[currentBannerIndex]?.release_date 
-                      ? new Date(featuredContent[currentBannerIndex].release_date).getFullYear()
-                      : new Date(featuredContent[currentBannerIndex]?.first_air_date || '').getFullYear()
-                    }
+                    {new Date(getMediaReleaseDate(featuredContent[currentBannerIndex])).getFullYear()}
                   </span>
                 </div>
 
@@ -480,7 +486,7 @@ const MobileHome: React.FC = () => {
                 <div className="relative h-48 rounded-xl overflow-hidden">
                   <img
                     src={selectedMedia.backdrop_path ? getImageUrl(selectedMedia.backdrop_path, 'w1280') : 'https://via.placeholder.com/1280x720/333/666?text=No+Image'}
-                    alt={('title' in selectedMedia ? selectedMedia.title : selectedMedia.name) || ''}
+                    alt={getMediaTitle(selectedMedia) || ''}
                     className="w-full h-full object-cover"
                     onError={(e) => {
                       const target = e.target as HTMLImageElement;
@@ -493,10 +499,10 @@ const MobileHome: React.FC = () => {
                 {/* Title and Basic Info */}
                 <div className="text-center">
                   <h1 className="text-2xl font-bold text-white mb-2">
-                    {'title' in selectedMedia ? selectedMedia.title : selectedMedia.name}
+                    {getMediaTitle(selectedMedia)}
                   </h1>
                   <p className="text-gray-400 mb-3">
-                    {('title' in selectedMedia ? selectedMedia.release_date : selectedMedia.first_air_date)?.split('-')[0] || 'N/A'}
+                    {getMediaReleaseDate(selectedMedia)?.split('-')[0] || 'N/A'}
                     {' • '}
                     {('title' in selectedMedia ? 'Movie' : 'TV Show')}
                   </p>

@@ -114,6 +114,52 @@ const MobileAbout: React.FC = () => {
             </div>
           </div>
 
+          {/* Legal Disclaimer Section */}
+          <div className="bg-pink-900/20 border border-pink-600/30 rounded-xl p-6">
+            <h2 className="text-xl font-bold text-pink-400 mb-4">Legal Disclaimer</h2>
+            <div className="space-y-4">
+              <div className="flex items-start space-x-3">
+                <div className="w-6 h-6 bg-pink-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-white text-xs font-bold">!</span>
+                </div>
+                <div>
+                  <h3 className="text-pink-400 font-semibold text-sm">No Content Hosting</h3>
+                  <p className="text-gray-300 text-sm">We do not host, store, or distribute any video content. This platform is for content discovery and organization only.</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-3">
+                <div className="w-6 h-6 bg-pink-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-white text-xs font-bold">!</span>
+                </div>
+                <div>
+                  <h3 className="text-pink-400 font-semibold text-sm">Copyright Respect</h3>
+                  <p className="text-gray-300 text-sm">No copyrighted content is supported or promoted. We respect intellectual property rights.</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-3">
+                <div className="w-6 h-6 bg-pink-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-white text-xs font-bold">!</span>
+                </div>
+                <div>
+                  <h3 className="text-pink-400 font-semibold text-sm">Third-Party Services</h3>
+                  <p className="text-gray-300 text-sm">Clicking on content may redirect to third-party streaming services responsible for their own content and licensing.</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start space-x-3">
+                <div className="w-6 h-6 bg-pink-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-white text-xs font-bold">!</span>
+                </div>
+                <div>
+                  <h3 className="text-pink-400 font-semibold text-sm">User Responsibility</h3>
+                  <p className="text-gray-300 text-sm">Users are responsible for ensuring they have proper authorization to access any content through third-party services.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Developer Section */}
           <div className="bg-gradient-to-r from-red-600 to-red-800 rounded-xl p-6">
             <h2 className="text-xl font-bold text-white mb-4">Developed by Shan</h2>
